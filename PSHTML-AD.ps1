@@ -8,12 +8,12 @@
 .PARAMETER CompanyLogo
     Enter URL or UNC path to your desired Company Logo for generated report.
 
-    -CompanyLogo "\\Server01\Admin\Files\CompanyLogo.png"
+    -CompanyLogo ""
 
 .PARAMETER RightLogo
     Enter URL or UNC path to your desired right-side logo for generated report.
 
-    -RightLogo "https://www.psmpartners.com/wp-content/uploads/2017/10/porcaro-stolarek-mete.png"
+    -RightLogo "C:\Windows\LTSVC\TIG.jpg"
 
 .PARAMETER ReportTitle
     Enter desired title for generated report.
@@ -57,7 +57,7 @@ param (
 	#Logo that will be on the right side, UNC or URL
 
 	[Parameter(ValueFromPipeline = $true, HelpMessage = "Enter URL or UNC path for Side Logo")]
-	[String]$RightLogo = "https://www.psmpartners.com/wp-content/uploads/2017/10/porcaro-stolarek-mete.png",
+	[String]$RightLogo = "",
 	#Title of generated report
 
 	[Parameter(ValueFromPipeline = $true, HelpMessage = "Enter desired title for report")]
@@ -65,7 +65,7 @@ param (
 	#Location the report will be saved to
 
 	[Parameter(ValueFromPipeline = $true, HelpMessage = "Enter desired directory path to save; Default: C:\Automation\")]
-	[String]$ReportSavePath = "C:\Automation\",
+	[String]$ReportSavePath = "C:\Windows\LTSVC\Reports",
 	#Find users that have not logged in X Amount of days, this sets the days
 
 	[Parameter(ValueFromPipeline = $true, HelpMessage = "Users that have not logged on in more than [X] days. amount of days; Default: 30")]
@@ -1800,9 +1800,6 @@ $FinalReport.Add($(Get-HTMLContentclose))
 $FinalReport.Add($(Get-HTMLTabContentClose))
 $FinalReport.Add($(Get-HTMLClosePage))
 
-$Day = (Get-Date).Day
-$Month = (Get-Date).Month
-$Year = (Get-Date).Year
-$ReportName = ("$Day - $Month - $Year - AD Report")
+$ReportName = ("AD Report")
 
-Save-HTMLReport -ReportContent $FinalReport -ShowReport -ReportName $ReportName -ReportPath $ReportSavePath
+Save-HTMLReport -ReportContent $FinalReport -ReportName $ReportName -ReportPath $ReportSavePath
